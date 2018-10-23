@@ -175,15 +175,15 @@ func igcHandler(w http.ResponseWriter, r *http.Request) {
 	} else if r.Method == "GET" { // If the method is GET
 		w.Header().Set("Content-Type", "application/json") // Set response content-type to JSON
 
-		x := 0 // numeric iterator
+		y := 0 // numeric iterator
 
 		response := "["
-		for i := range igcFiles { // Get all the IDs of .igc files stored in the igcFiles map
-			if x != len(igcFiles)-1 { // If it's the last item in the array, don't add the ","
-				response += "\"" + igcFiles[i].trackName + "\","
-				x++ // Increment the iterator
+		for j := range igcFiles { // Get all the IDs of .igc files stored in the igcFiles map
+			if y != len(igcFiles)-1 { // If it's the last item in the array, don't add the ","
+				response += "\"" + igcFiles[j].trackName + "\","
+				y++ // Increment the iterator
 			} else {
-				response += "\"" + igcFiles[i].trackName + "\""
+				response += "\"" + igcFiles[j].trackName + "\""
 			}
 		}
 		response += "]"
@@ -239,9 +239,9 @@ func fieldHandler(w http.ResponseWriter, r *http.Request) {
 
 func urlRouter(w http.ResponseWriter, r *http.Request) {
 	urlMap := map[string]func(http.ResponseWriter, *http.Request){ // A map of accepted URL RegEx patterns
-		"^/igcinfo/api/$":                      apiHandler,
-		"^/igcinfo/api/igc/$":                   igcHandler,
-		"^/igcinfo/api/igc/[a-zA-Z0-9]{3,10}/$": idHandler,
+		"^/igcinfo/api$":                      apiHandler,
+		"^/igcinfo/api/igc$":                   igcHandler,
+		"^/igcinfo/api/igc/[a-zA-Z0-9]{3,10}$": idHandler,
 		"^/igcinfo/api/igc/[a-zA-Z0-9]{3,10}/(pilot|glider|glider_id|track_length|H_date)$": fieldHandler,
 	}
 
